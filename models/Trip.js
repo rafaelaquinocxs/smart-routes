@@ -10,4 +10,4 @@ const ViagemSchema = new mongoose.Schema({
   collection: 'viagems' // Força o nome da coleção a ser 'viagems'
 });
 
-module.exports = mongoose.model('Trip', ViagemSchema);
+module.exports = mongoose.model('Trip', ViagemSchema, 'viagems');

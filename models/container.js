@@ -6,4 +6,5 @@ const ContainerSchema = new mongoose.Schema({
   nivel: { type: Number, min: 0, max: 100, required: true }
 });
 
-module.exports = mongoose.model('Container', ContainerSchema);
+module.exports = mongoose.model('Container', ContainerSchema, 'containers');
+

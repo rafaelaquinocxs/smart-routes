@@ -5,4 +5,5 @@ const PointSchema = new mongoose.Schema({
   localizacao_Y: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Point', PointSchema);
+module.exports = mongoose.model('Point', PointSchema, 'points');
+
