@@ -44,6 +44,7 @@ console.log('Carregando rotas...');
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', isAdmin, adminRoutes);
 app.use('/api/devices', deviceRoutes);
+app.use('/api', deviceRoutes);
 
 // Rota de teste
 app.get('/api/test', (req, res) => {

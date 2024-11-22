@@ -1,21 +1,33 @@
 import React from 'react';
+import { List, ListItem, ListItemText, Drawer, Toolbar } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
-        <div style={{
-            width: '200px',
-            height: '100vh',
-            backgroundColor: '#f4f4f4',
-            padding: '20px',
-            boxShadow: '2px 0 5px rgba(0,0,0,0.1)'
-        }}>
-            <h3>Sidebar</h3>
-            <ul>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/containers">Containers</a></li>
-                <li><a href="/viagens">Viagens</a></li>
-            </ul>
-        </div>
+        <Drawer
+            variant="permanent"
+            sx={{
+                width: 240,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+            }}
+        >
+            <Toolbar />
+            <List>
+                <ListItem button component={Link} to="/home">
+                    <ListItemText primary="Home" />
+                </ListItem>
+                <ListItem button component={Link} to="/dashboard">
+                    <ListItemText primary="Dashboard" />
+                </ListItem>
+                <ListItem button component={Link} to="/mapa">
+                    <ListItemText primary="Mapa" />
+                </ListItem>
+                <ListItem button component={Link} to="/rotas">
+                    <ListItemText primary="Rotas" />
+                </ListItem>
+            </List>
+        </Drawer>
     );
 };
 
