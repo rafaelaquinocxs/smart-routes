@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App'; // Importa o componente principal App
+import { createRoot } from 'react-dom/client'; // Certifique-se de importar corretamente
+import App from './App'; // Seu componente principal
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root') // Certifique-se de que o 'root' existe no public/index.html
-);
+const rootElement = document.getElementById('root'); // Certifique-se de ter um elemento com ID "root" no HTML
+if (rootElement) {
+    const root = createRoot(rootElement);
+    root.render(<App />);
+}
