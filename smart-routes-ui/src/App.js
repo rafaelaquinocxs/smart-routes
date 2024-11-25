@@ -7,6 +7,8 @@ import Map from './pages/Map';
 import RoutesPage from './pages/Routes';
 import { AppBar, Toolbar, Typography, CssBaseline, Box } from '@mui/material';
 import CreateRoute from './pages/CreateRoute';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 
 function App() {
     return (

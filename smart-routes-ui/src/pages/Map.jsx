@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
 import { Box } from '@mui/material';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Define o token de acesso do Mapbox
-mapboxgl.accessToken = 'pk.eyJ1IjoiYXF1aW5vcmFmYWN4cyIsImEiOiJjbTNzNjNhbXcwOW8zMmlweWNsdmxpaW90In0.oEEjuCp_KbImb2Gu1-d4SA';
-
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const Map = () => {
     const mapContainerRef = useRef(null);
@@ -30,14 +30,14 @@ const Map = () => {
     useEffect(() => {
         const fetchContainers = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/devices/containers'); // Ajuste conforme sua rota
+                const response = await axios.get('http://localhost:5010/api/devices/containers'); // Ajuste conforme sua rota
                 setContainers(response.data);
             } catch (error) {
                 console.error('Erro ao buscar containers:', error);
             }
         };
 
-        void fetchContainers();
+        fetchContainers();
     }, []);
 
     // Adiciona marcadores no mapa
