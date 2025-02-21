@@ -1,0 +1,325 @@
+import { LineChart, BarChart3, Leaf, Car, Container, CalendarClock } from "lucide-react";
+import Sidebar from "@/components/layout/Sidebar";
+import StatCard from "@/components/dashboard/StatCard";
+import {
+  LineChart as RechartsLineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const data = [
+  { name: "Jan", value: 40 },
+  { name: "Fev", value: 30 },
+  { name: "Mar", value: 45 },
+  { name: "Abr", value: 50 },
+  { name: "Mai", value: 35 },
+  { name: "Jun", value: 60 },
+];
+
+const Dashboard = () => {
+  return (
+    <div className="flex min-h-screen bg-secondary">
+      <Sidebar />
+      
+      <main className="flex-1 p-8 ml-64">
+        <div className="max-w-7xl mx-auto animate-fade-in">
+          <header className="mb-8">
+            <h1 className="text-3xl font-bold text-text">Dashboard</h1>
+            <p className="text-text/60 mt-2">
+              Visualize métricas e indicadores importantes do sistema.
+            </p>
+          </header>
+
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <StatCard
+              title="Total de Rotas"
+              value="24"
+              icon={<Car size={20} />}
+            />
+            <StatCard
+              title="Contêineres Ativos"
+              value="156"
+              icon={<Container size={20} />}
+              className="bg-primary/5"
+            />
+            <StatCard
+              title="Média de Coletas/Dia"
+              value="35"
+              icon={<CalendarClock size={20} />}
+            />
+          </section>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section className="glass-panel rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-6">Evolução de Coletas</h2>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RechartsLineChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="value" stroke="#1976D2" strokeWidth={2} />
+                  </RechartsLineChart>
+                </ResponsiveContainer>
+              </div>
+            </section>
+
+            <section className="glass-panel rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-4">Desempenho Recente</h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-white rounded-lg">
+                  <div className="flex items-center gap-4">
+                    <Leaf className="text-success" size={20} />
+                    <div>
+                      <p className="font-medium">Redução de CO2</p>
+                      <p className="text-sm text-text/60">Último mês</p>
+                    </div>
+                  </div>
+                  <span className="eco-badge">-15%</span>
+                </div>
+                <div className="flex items-center justify-between p-4 bg-white rounded-lg">
+                  <div className="flex items-center gap-4">
+                    <BarChart3 className="text-primary" size={20} />
+                    <div>
+                      <p className="font-medium">Eficiência de Rotas</p>
+                      <p className="text-sm text-text/60">Último mês</p>
+                    </div>
+                  </div>
+                  <span className="eco-badge">+22%</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;
+
+2. RoutesPage (src/pages/RoutesPage.tsx):
+
+
+import { Calendar, MapPin, Clock, MoreVertical } from "lucide-react";
+import Sidebar from "@/components/layout/Sidebar";
+
+const Routes = () => {
+  return (
+    <div className="flex min-h-screen bg-secondary">
+      <Sidebar />
+      
+      <main className="flex-1 p-8 ml-64">
+        <div className="max-w-7xl mx-auto animate-fade-in">
+          <header className="mb-8 flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-text">Rotas</h1>
+              <p className="text-text/60 mt-2">
+                Gerencie e otimize as rotas de coleta.
+              </p>
+            </div>
+            <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+              Nova Rota
+            </button>
+          </header>
+
+          <section className="glass-panel rounded-xl p-6">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-secondary">
+                    <th className="text-left p-4 font-medium text-text/60">ID</th>
+                    <th className="text-left p-4 font-medium text-text/60">Data</th>
+                    <th className="text-left p-4 font-medium text-text/60">Contêineres</th>
+                    <th className="text-left p-4 font-medium text-text/60">Status</th>
+                    <th className="text-left p-4 font-medium text-text/60">Ações</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-secondary">
+                  {[
+                    { id: "R001", date: "2024-02-20", containers: 12, status: "Concluída" },
+                    { id: "R002", date: "2024-02-20", containers: 8, status: "Em andamento" },
+                    { id: "R003", date: "2024-02-21", containers: 15, status: "Agendada" },
+                  ].map((route) => (
+                    <tr key={route.id} className="hover:bg-secondary/50 transition-colors">
+                      <td className="p-4">
+                        <span className="font-medium">{route.id}</span>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2">
+                          <Calendar size={16} className="text-text/60" />
+                          <span>{route.date}</span>
+                        </div>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2">
+                          <MapPin size={16} className="text-text/60" />
+                          <span>{route.containers} contêineres</span>
+                        </div>
+                      </td>
+                      <td className="p-4">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium
+                          ${route.status === "Concluída" ? "bg-success/10 text-success" :
+                            route.status === "Em andamento" ? "bg-primary/10 text-primary" :
+                            "bg-yellow-100 text-yellow-800"}`}>
+                          {route.status}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <button className="p-2 hover:bg-secondary rounded-lg transition-colors">
+                          <MoreVertical size={16} className="text-text/60" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Routes;
+
+3. Settings (src/pages/Settings.tsx):
+
+
+import { Save, UserCircle, Bell, Lock, Globe, Database } from "lucide-react";
+import Sidebar from "@/components/layout/Sidebar";
+
+const Settings = () => {
+  return (
+    <div className="flex min-h-screen bg-secondary">
+      <Sidebar />
+      
+      <main className="flex-1 p-8 ml-64">
+        <div className="max-w-3xl mx-auto animate-fade-in">
+          <header className="mb-8">
+            <h1 className="text-3xl font-bold text-text">Configurações</h1>
+            <p className="text-text/60 mt-2">
+              Gerencie as configurações do sistema.
+            </p>
+          </header>
+
+          <div className="space-y-6">
+            <section className="glass-panel rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <UserCircle size={24} />
+                Perfil do Administrador
+              </h2>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-text/60 mb-1">
+                      Nome
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-3 py-2 rounded-lg border bg-white"
+                      placeholder="Nome do administrador"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text/60 mb-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="w-full px-3 py-2 rounded-lg border bg-white"
+                      placeholder="email@exemplo.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="glass-panel rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <Database size={24} />
+                Configurações do Sistema
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text/60 mb-1">
+                    URL da API
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-3 py-2 rounded-lg border bg-white"
+                    placeholder="https://api.exemplo.com"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text/60 mb-1">
+                    Chave da API do Google Maps
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full px-3 py-2 rounded-lg border bg-white"
+                    placeholder="Digite sua chave da API"
+                  />
+                </div>
+                <div className="flex items-center justify-between p-4 bg-white rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <Bell size={20} className="text-text/60" />
+                    <span>Notificações por Email</span>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" className="sr-only peer" />
+                    <div className="w-11 h-6 bg-secondary rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-secondary after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </label>
+                </div>
+              </div>
+            </section>
+
+            <section className="glass-panel rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <Lock size={24} />
+                Segurança
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text/60 mb-1">
+                    Nova Senha
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full px-3 py-2 rounded-lg border bg-white"
+                    placeholder="Digite a nova senha"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text/60 mb-1">
+                    Confirmar Senha
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full px-3 py-2 rounded-lg border bg-white"
+                    placeholder="Confirme a nova senha"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <div className="flex justify-end">
+              <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors flex items-center gap-2">
+                <Save size={20} />
+                Salvar Alterações
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Settings;
